@@ -127,3 +127,40 @@ sudo apt-get install gobuster
 # Gobuster Example Usage:
 
 gobuster dir -u <http://Host> -w <Your Wordlist's Path> -x <Extensions>
+
+# Common Status Codes:
+
+200 = Ok
+400 = Error(Mostly 404)
+300 = Redirect
+500 = Server Error
+
+# Enumerating SMB:
+
+# You Can Use MetaSploit To Find SMB Version But We Can Get It Using
+
+nmap -sV <IP>
+
+# Usage:
+
+smbclient -L \\\\<IP>\\
+
+# May Lead To File Share Listsing
+
+# Enumerating SSH:
+
+ssh <IP>
+
+# To Find Vulnerabilities, Just GOOGLE The Version Number Exploit!
+
+# Addinational Scanning Tools:
+
+masscan -p1-65535 <IP>
+
+# Metasploit Can Also Be Used. 
+# Nessus Is Another Tool
+# Download Nessus From Google
+
+dpkg -i <Filename>
+
+# This Will Install It And Follow The Screen Instructions To Go Ahead. 
