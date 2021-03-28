@@ -5,7 +5,7 @@
 
 [*] Email Gathering Can Be Done Using hunter.io
 
-[*] Data Breaches Happen When The Data Of The Company(Mostly Credentials) Are Leaked Out To The Internet. Heath Adams Has A Good Tool Called Breach Parse Through Which We Can Get Breached Credentials
+[*] Data Breaches Happen When The Data Of The Company(Mostly Credentials) Are Leaked Out To The Internet. Heath Adams Has A Good Tool Called Breach Parse Through Which We Can Get Breached Credentials. 
 
 https://github.com/hmaverickadams/breach-parse
 
