@@ -17,6 +17,9 @@ nmap -sC -sV -A -p- -T4 <IP>
 [*] Did Some Enumeration On Google
 [*] Found SMB Version Using Metasploit(auxiliary/scanner/smb/smb_version)
 [*] Found Windows SP3
+
+[+] Exploitation
+
 [*] Searched Google For Smb Windows SP3 Exploit
 [*] Used exploit/windows/smb/ms08_067_netapi In Metasploit
 [*] Got A Shell
