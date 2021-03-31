@@ -12,6 +12,8 @@
 
 https://github.com/netbiosX/Default-Credentials/blob/master/Apache-Tomcat-Default-Passwords.mdown
 
+[*] Exploitation
+
 [*] Open Burp
 [*] Intercept
 [*] Get A Request
