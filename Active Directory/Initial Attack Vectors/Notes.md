@@ -194,8 +194,50 @@ pip3 install .
 12. Click On The Flag With The Alert Symbol And Click On Configure Active Directory Certificate Services..
 13. Click On Next
 14. Click On Certificate Authority
-15. Hit Enter 6 Times(If Shown, Select SHA256 From The List)
+15. Hit Enter 5-6 Times(If Shown, Select SHA256 From The List)
 16. In The Time Period, Change It To 99 Years
 17. Hit Next 2 Times
 18. Click Configure
 19. Reboot The Server
+
+[*] Attacking
+
+[*] Command:
+
+mitm6 -d <DomainName>.local
+mitm6 -d MARVEL.local
+
+[*] We Also Have To Setup A Relay Attack:
+
+ntlmrelayx.py -6 -t ldaps://<Domain Controller IP> -wh fakewpad.<DomainName>.local -l lootme
+ntlmrelayx.py -6 -t ldaps://192.168.57.140 -wh fakewpad.marvel.local -l lootme
+
+[*] Reboot The Windows Machine As Our Attack Will Be Finished Faster
+[*] The Attack Starts Running And As You Can See That A lootme Folder Created Which Has A Lot Of Information
+
+[*] Lets Open domain_users_by_groups
+[*] And What, We Got The Password Of Our SQLService Which Was In The Description!
+[*] Now Login Using Administrator Account On The Domain Server
+[*] We Ran The Attack And A New User Was Created For Us!
+[*] Useful Links
+
+https://dirkjanm.io/worst-of-both-worlds-ntlm-relaying-and-kerberos-delegation/
+https://blog.fox-it.com/2018/01/11/mitm6-compromising-ipv4-networks-via-ipv6/
+
+[*] Defenses
+
+[*] Disable IPv6(Not Recommended)
+[*] Make Block Rules For Your Firewall
+[*] If WPAD Is Not Used, Disable It
+[*] Enable LDAP Signing And LDAP Channel Binding
+[*] Add Administrator To Protected Users Group
+
+[*] Other Attack Vectors And Stratagies
+
+[+] Stratigies
+
+1. Begin The Day With mitm6 And Responder
+2. Run Scans To Generate Traffic
+3. If Scans Take Too Long, Look For Websites In Scope(Tool: http_version[Metasploit])
+4. Try Default Credentials On Web Logins
+5. Think Outside The Box
