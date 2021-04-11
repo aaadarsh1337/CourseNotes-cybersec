@@ -97,3 +97,55 @@ Get-NetGPO | select displayname, whenchanged
 [*] Refrence:
 
 https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+
+[*] Blood Hound
+
+[*] Installation:
+
+apt-get install bloodhound
+
+[*] Blood Hound Uses neo4j, Lets Set It Up:
+
+neo4j console
+
+[*] This Should Output A Link. Open The Link In Your Browser
+
+[*] Login Using:
+
+User = neo4j
+Password = neo4j
+
+[*] Now Enter New Password
+[*] Close The Browser
+[*] Do NOT Close The Terminal. Open A New One And Type:
+
+bloodhound
+
+[*] Now Login Using 
+
+Username: neo4j
+Password: <YourPassword>
+
+[*] Grabbing Data With Invoke-Bloodhound
+
+https://github.com/BloodHoundAD/BloodHound/blob/master/Collectors/SharpHound.
+
+[*] Note: All Users Should Be Logged In Order For BloodHound To Pull The Data Of Those Users
+
+[*] Copy This File To The Windows Machine
+[*] Running It:
+
+powershell -ep bypass
+. .\SharpHound.ps1
+
+[*] Nothing Should Show Up But Its Running. Lets Run Our Commands:
+
+Invoke-BloodHound -CollectionMethod All -Domain <DomainName>.local -ZipFileName File.zip
+
+[*] This Should Create A .zip File
+[*] Move The Zip File From The Machine To Our Kali Machine
+[*] Now Open BloodHound
+[*] Click On Upload Data Button On The Right Side And Upload The .zip File
+[*] Now Click On The Three Lined Button On The Top-Left And You Should See Some Information About The Target
+[*] Now Click On Queries
+[*] You Can Play Around With It And Find Some Useful Data. 
