@@ -106,3 +106,77 @@ https://owasp.org/www-project-top-ten/2017/A1_2017-Injection.html
 
 [+] Parameterized Statements
 [+] Sanitizing Input
+
+[*] Broken Authentication
+
+https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication
+
+[*] We Can Check For This Using Burp. Create An Account And Login And You Should See A Token. When You Log Out, It Vanishes. No Broken Authentication...
+
+[*] Sensitive Data Exposure
+
+https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure
+
+[*] Testing:
+
+[*] Gobuster/Dirbuster The Site. Got A Directory Named ftp ! We Get Some Information!
+[*] You Should Also Look For Headers
+
+https://securityheaders.com/
+
+[*] NMAP Can Also Be Used For Checking SSL Ciphers
+
+nmap --script=ssl-enum-ciphers -p 443 <Site>
+
+[*] XML External Entities(XXE):
+
+https://owasp.org/www-project-top-ten/2017/A4_2017-XML_External_Entities_(XXE).html
+
+[*] For This, We Will Use Some XML Payloads:
+
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection
+
+[*] We Will Use:
+
+```xml
+<?xml version="1.0" encoding="ISO-8859-1"?>
+  <!DOCTYPE foo [  
+  <!ELEMENT foo ANY >
+  <!ENTITY xxe SYSTEM "file:///etc/passwd" >]><foo>&xxe;</foo>
+```
+
+[*] Bad News: This Cant Be Executed On Our Docker Juice Shop(But We Will Try To Run)
+
+[*] There Is A Complaint Section On The Page Where We Can Upload A File. Lets Intercept The Request And Lets Upload. It Went But Nothing Came Back :-(
+[*] If You Want Practical:
+
+https://www.youtube.com/watch?v=xH8WbuApFXw
+
+[*] Broken Access Control
+
+https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control.html
+
+[*] Short Meaning: A User Gets Access Of A Place Which He Shouldn't
+
+[*] Practical:
+
+[*] Signup As A Test User And Login. 
+[*] Now We Will Submit A Feedback Form But With Another Name!
+[*] Right Click And Inspect Element On The Feedback Page
+[*] Now There Should Be An Input id Section And The Text Is Hidden. Double Click It And Delete The hidden Part. Hit Enter. We Got A User ID! Change It To 1 For Admin User And We Are Done!
+
+[*] Security Misconfigurations:
+
+https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html
+
+[*] Simple Meaning: Misconfigurations In The Websites Security
+[*] Ex: Default Credentials Like admin:admin, cisco:cisco, admin:password, admin:password123
+
+[*] Cross Site Scripting(XSS):
+
+https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS).html
+
+[*] Resources:
+
+https://www.scip.ch/en/?labs.20171214
+https://xss-game.appspot.com/
