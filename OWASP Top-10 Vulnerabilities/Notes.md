@@ -180,3 +180,57 @@ https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS).ht
 
 https://www.scip.ch/en/?labs.20171214
 https://xss-game.appspot.com/
+
+[*] There Are Three Main Types:
+
+1. Reflected
+2. Stored
+3. DOM(We Wont Cover This In This Course)
+
+[*] Reflected(Practical)
+
+[*] We Wont Do This On Juice Shop. We Will Use xss-game
+
+https://xss-game.appspot.com/
+
+[*] The Command:
+
+<script>alert("xss")</script>
+
+[*] Thats It! We Created A Popup
+
+[*] Stored XSS(On JuiceShop):
+
+[*] Location: On Your Account Username Tab
+[*] The Command:
+
+<script>a<script>alert("xss")</script>
+
+[*] Here We Added An Extra script a Because The Server Was Filtering It. We Got A Popup!
+
+[*] Defences:
+
+1. Encoding
+2. Filtering
+3. Validating
+4. Sanitation
+
+[*] Insecure Deserialization
+
+https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization.html
+
+[*] Only Reading Stuff. No Practical Attack Works On Juice Shop. :-(
+
+[*] Using Components With Known vulnerabilities
+
+https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities
+
+[*] Again, No Practicals. Just A High Level Overview...
+
+[*] Insufficient Logging And Monitoring
+
+https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring.html
+
+[*] Not Again :-( No Practical...
+
+[*] OWASP Top 10 Done!
