@@ -1,3 +1,5 @@
+```md
+
 [*] Installing Golang
 
 https://golang.org/doc/install?download=go1.16.3.linux-amd64.tar.gz (Linux, 64Bit)
@@ -43,7 +45,7 @@ assetfinder <Target>.com
 assetfinder --subs-only <Target>.com
 
 [*] Lets Automate It
-
+```
 ```bash
 #!/bin/bash
 
@@ -62,7 +64,7 @@ assetfinder $url >> $url/recon/assets.txt
 cat $url/recon/assets.txt | grep $1 >> $url/recon/final.txt
 rm $url/recon/assets.txt
 ```
-
+```md
 [*] Finding Subdomains Using Amass
 
 https://github.com/OWASP/Amass
@@ -73,6 +75,7 @@ https://github.com/OWASP/Amass
 amass enum -d <Target>.com
 
 [*] Lets Modify The Automate Script
+```
 
 ```bash
 #!/bin/bash
@@ -97,7 +100,7 @@ amass enum -d $url >> $url/recon/f.txt
 sort -u $url/recon/f.txt >> final.txt
 rm $url/recon/f.txt
 ```
-
+```md
 [*] Finding Alive Domains Using httprobe
 
 https://github.com/tomnomnom/httprobe
@@ -112,7 +115,7 @@ cat <SubdomainList> | httprobe
 cat <SubdomainList> | httprobe -s | sed 's/https\?:\/\///'
 
 [*] Modified Scripts
-
+```
 ```bash
 #!/bin/bash
 
@@ -141,7 +144,7 @@ cat $url/recon/final.txt | sort -u | httprobe -s | sed 's/https\?:\/\///' >> $ur
 sort -u $url/recon/a.txt > $url/recon/alive.txt
 rm $url/recon/a.txt
 ```
-
+```md
 [*] Getting Screenshots Using Gowitness
 
 https://github.com/sensepost/gowitness
@@ -188,7 +191,7 @@ rm $url/recon/a.txt
 echo "[*] Taking Screenshots Of Live Domains"
 gowitness file -s $url/recon/alive.txt -d $url/recon/screenshots/
 ```
-
+```md
 [*] This Is Our Final Script But The Cyber Mentor Has Written A Way More Better Script Which Is Here:
 
 https://pastebin.com/MhE6zXVt
