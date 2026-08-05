@@ -4,5 +4,4 @@ Adarsh Pillai | 25-03-2021
 
 ------------------------------
 
-Sorry If The Notes Look A Little Wierd But After Cloning, In An Editor, It Will Look Awesome!
-
+Recently revisited all the notes and made appropriate changes [06/08/26]
