@@ -1,3 +1,5 @@
+```md
+
 [*] Active Reconnaissance Is Information Gathering Which Is Indirect. Ex. LinkedIn, Facebook, etc.
 [*] Passive Reconnaissance Is Information Gathering Which Is Directly Done On The Sources. Ex. For Tesla, tesla.com
 
